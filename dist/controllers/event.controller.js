@@ -3,7 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getAllEventsForAdminController = exports.getAllEventsController = exports.getEventByIdForAdminController = exports.getEventByIdController = exports.deleteEventController = exports.updateEventController = exports.createEventController = void 0;
+exports.getAllEventsForAdminController = exports.getLatestEventController = exports.getAllEventsController = exports.getEventByIdForAdminController = exports.getEventByIdController = exports.deleteEventController = exports.updateEventController = exports.createEventController = void 0;
 const asyncHandler_middleware_1 = require("../middleware/asyncHandler.middleware");
 const event_service_impl_1 = __importDefault(require("../services/impl/event.service.impl"));
 const event_dto_1 = require("../dto/event.dto");
@@ -46,6 +46,10 @@ exports.getAllEventsController = (0, asyncHandler_middleware_1.asyncHandler)(asy
     const filter = req.query.filter;
     const events = await eventService.getAllEvents(page, pageSize, filter);
     return res.status(200).json(events);
+});
+exports.getLatestEventController = (0, asyncHandler_middleware_1.asyncHandler)(async (req, res) => {
+    const latestEvent = await eventService.getLatestEvent();
+    return res.status(200).json(latestEvent);
 });
 exports.getAllEventsForAdminController = (0, asyncHandler_middleware_1.asyncHandler)(async (req, res) => {
     const page = parseInt(req.query.page) || 1;

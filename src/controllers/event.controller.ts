@@ -78,6 +78,11 @@ export const getAllEventsController = asyncHandler(async (req: CustomRequest, re
     return res.status(200).json(events);
 })
 
+export const getLatestEventController = asyncHandler(async (req: CustomRequest, res: Response) => {
+    const latestEvent = await eventService.getLatestEvent();
+    return res.status(200).json(latestEvent);
+})
+
 export const getAllEventsForAdminController = asyncHandler(async (req: CustomRequest, res: Response) => {
     const page = parseInt(req.query.page as string) || 1;
     const pageSize = parseInt(req.query.pageSize as string) || 10;

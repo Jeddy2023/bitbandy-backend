@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { createEventController, deleteEventController, getAllEventsController, getAllEventsForAdminController, getEventByIdController, getEventByIdForAdminController, updateEventController } from "../controllers/event.controller";
+import { createEventController, deleteEventController, getAllEventsController, getAllEventsForAdminController, getEventByIdController, getEventByIdForAdminController, getLatestEventController, updateEventController } from "../controllers/event.controller";
 import { isLoggedIn } from "../middleware/isLoggedIn.middleware";
 import { isAdmin } from "../middleware/isAdmin.middleware";
 import { upload } from "../config/multer-config";
@@ -19,6 +19,7 @@ router.delete("/delete-event/:id", isLoggedIn, isAdmin, deleteEventController);
 router.get("/event/:id", getEventByIdController);
 router.get("/admin/event/:id", isLoggedIn, isAdmin, getEventByIdForAdminController);
 router.get("/", getAllEventsController);
+router.get("/latest-event", getLatestEventController);
 router.get("/admin/events", isLoggedIn, isAdmin, getAllEventsForAdminController);
 
 export default router;

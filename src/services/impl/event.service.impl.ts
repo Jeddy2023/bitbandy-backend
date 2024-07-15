@@ -172,6 +172,38 @@ class EventServiceImpl implements EventService {
         })
     }
 
+    async getLatestEvent(): Promise<GetEventDTO> {
+        const now = new Date();
+
+        const event = await Event.findOne({
+            eventDate: {
+                $gt: now
+            }
+        })
+            .sort({ eventDate: 1 })
+            .exec();
+
+        if (!event) {
+            throw new CustomError(404, "No upcoming events found");
+        }
+
+        return {
+            id: event._id,
+            eventName: event.eventName,
+            eventDetails: event.eventDetails,
+            eventImage: event.eventImage,
+            start: event.time.start,
+            end: event.time.end,
+            place: event.location.place,
+            state: event.location.state,
+            area: event.location.area,
+            city: event.location.city,
+            price: event.tickets.price,
+            totalTickets: event.tickets.totalTickets,
+            eventDate: event.eventDate
+        };
+    }
+
     async getAllEventsForAdmin(page: number, pageSize: number, filter: string): Promise<IEvent[]> {
         const offset = (page - 1) * pageSize;
         let query = {};

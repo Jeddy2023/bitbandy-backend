@@ -9,5 +9,6 @@ export interface EventService {
     getEventById(id: string): Promise<GetEventDTO | null>;
     getEventByIdForAdmin(id: string): Promise<IEvent | null>;
     getAllEvents(page: number, pageSize: number, filter: string): Promise<GetEventDTO[]>;
+    getLatestEvent(): Promise<GetEventDTO>; 
     getAllEventsForAdmin(page: number, pageSize: number, filter: string): Promise<IEvent[]>;
 }

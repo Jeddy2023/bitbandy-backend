@@ -19,5 +19,6 @@ router.delete("/delete-event/:id", isLoggedIn_middleware_1.isLoggedIn, isAdmin_m
 router.get("/event/:id", event_controller_1.getEventByIdController);
 router.get("/admin/event/:id", isLoggedIn_middleware_1.isLoggedIn, isAdmin_middleware_1.isAdmin, event_controller_1.getEventByIdForAdminController);
 router.get("/", event_controller_1.getAllEventsController);
+router.get("/latest-event", event_controller_1.getLatestEventController);
 router.get("/admin/events", isLoggedIn_middleware_1.isLoggedIn, isAdmin_middleware_1.isAdmin, event_controller_1.getAllEventsForAdminController);
 exports.default = router;

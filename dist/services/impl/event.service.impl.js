@@ -175,6 +175,34 @@ class EventServiceImpl {
             };
         });
     }
+    async getLatestEvent() {
+        const now = new Date();
+        const event = await event_model_1.Event.findOne({
+            eventDate: {
+                $gt: now
+            }
+        })
+            .sort({ eventDate: 1 })
+            .exec();
+        if (!event) {
+            throw new customError_utils_1.CustomError(404, "No upcoming events found");
+        }
+        return {
+            id: event._id,
+            eventName: event.eventName,
+            eventDetails: event.eventDetails,
+            eventImage: event.eventImage,
+            start: event.time.start,
+            end: event.time.end,
+            place: event.location.place,
+            state: event.location.state,
+            area: event.location.area,
+            city: event.location.city,
+            price: event.tickets.price,
+            totalTickets: event.tickets.totalTickets,
+            eventDate: event.eventDate
+        };
+    }
     async getAllEventsForAdmin(page, pageSize, filter) {
         const offset = (page - 1) * pageSize;
         let query = {};
