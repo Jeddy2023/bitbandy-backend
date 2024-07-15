@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BitBandy Tickets</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+        rel="stylesheet">
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+
+        .banner {
+            border: 1px dashed #1b3f5e;
+            box-shadow: 2px 2px 14px lightgray;
+            font-family: "Poppins", sans-serif;
+            position: relative;
+            overflow: hidden;
+            padding: 20px 0;
+            border-top-left-radius: 50px;
+            border-bottom-right-radius: 50px;
+        }
+
+        .banner::before {
+            content: "BitBandy";
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 10em;
+            color: #f2f6fc;
+            z-index: -1;
+            white-space: nowrap;
+        }
+
+        .uppercase {
+            text-transform: uppercase;
+        }
+
+        .top {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 30px;
+            background-color: #1b3f5e;
+            padding: 15px 40px;
+            z-index: 1;
+            color: white;
+        }
+
+        .normal {
+            font-weight: 400;
+        }
+
+        .triangle-up,
+        .triangle-down {
+            position: absolute;
+            left: 30%;
+            transform: translateX(-50%);
+        }
+
+        .triangle-up {
+            width: 0;
+            height: 0;
+            border-left: 20px solid transparent;
+            border-right: 20px solid transparent;
+            border-bottom: 20px solid #1b3f5e;
+            bottom: 0;
+        }
+
+        .triangle-down {
+            width: 0;
+            height: 0;
+            border-left: 20px solid transparent;
+            border-right: 20px solid transparent;
+            border-top: 20px solid #1b3f5e;
+            top: 0;
+        }
+
+        .vertical-line {
+            position: absolute;
+            top: 20px;
+            bottom: 20px;
+            left: 30%;
+            transform: translateX(-50%);
+            border-left: 3px dashed #1b3f5e;
+            height: calc(100% - 40px);
+        }
+
+        .bottom {
+            display: flex;
+            width: 100%;
+            padding: 10px 40px;
+            color: #1b3f5e;
+        }
+
+        .bottom-left {
+            min-width: 30%;
+        }
+
+        .bottom-left-img {
+            width: 80px;
+            overflow: hidden;
+        }
+
+        .bottom-left-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: fill;
+        }
+
+        .bottom-left-circle {
+            width: 70%;
+            padding: 5px;
+            border: 1px solid #1b3f5e;
+        }
+
+        .bottom-right {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            padding-left: 20px;
+        }
+
+        .bottom-right-details {
+            line-height: 30px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="banner">
+        <div class="triangle-up"></div>
+        <div class="triangle-down"></div>
+        <div class="vertical-line"></div>
+        <div class="top">
+            <h2 class="uppercase normal">Ticket No. {{ticketNumber}}</h2>
+            <h1 class="uppercase normal">{{eventTitle}}</h1>
+        </div>
+        <div class="bottom">
+            <div class="bottom-left">
+                <div class="bottom-left-img">
+                    <img src="https://bitbandy-frontend.vercel.app/assets/bitbandy-DpIeohPR.png" alt="">
+                </div>
+                <div class="bottom-left-circle">
+                    <h3>Event Ticket</h3>
+                    <span>{{eventTime}}</span>
+                </div>
+            </div>
+            <div class="bottom-right">
+                <div class="bottom-right-details">
+                    <h1 class="uppercase">{{eventTitle}}</h1>
+                    <h2 class="uppercase">Ticket. {{ticketCode}}</h2>
+                </div>
+                <div class="bottom-right-date">
+                    <span><strong>Location:</strong> {{location}}</span>
+                    <span>{{eventDate}}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
