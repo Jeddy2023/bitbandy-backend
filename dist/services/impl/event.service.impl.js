@@ -177,7 +177,7 @@ class EventServiceImpl {
     }
     async getLatestEvent() {
         const now = new Date();
-        const event = await event_model_1.Event.findOne({
+        let event = await event_model_1.Event.findOne({
             eventDate: {
                 $gt: now
             }
@@ -185,7 +185,16 @@ class EventServiceImpl {
             .sort({ eventDate: 1 })
             .exec();
         if (!event) {
-            throw new customError_utils_1.CustomError(404, "No upcoming events found");
+            event = await event_model_1.Event.findOne({
+                eventDate: {
+                    $lte: now
+                }
+            })
+                .sort({ eventDate: -1 })
+                .exec();
+            if (!event) {
+                throw new customError_utils_1.CustomError(404, "No events found");
+            }
         }
         return {
             id: event._id,

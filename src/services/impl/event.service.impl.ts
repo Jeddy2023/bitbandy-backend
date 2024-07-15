@@ -175,7 +175,7 @@ class EventServiceImpl implements EventService {
     async getLatestEvent(): Promise<GetEventDTO> {
         const now = new Date();
 
-        const event = await Event.findOne({
+        let event = await Event.findOne({
             eventDate: {
                 $gt: now
             }
@@ -184,7 +184,17 @@ class EventServiceImpl implements EventService {
             .exec();
 
         if (!event) {
-            throw new CustomError(404, "No upcoming events found");
+            event = await Event.findOne({
+                eventDate: {
+                    $lte: now
+                }
+            })
+                .sort({ eventDate: -1 })
+                .exec();
+
+            if (!event) {
+                throw new CustomError(404, "No events found");
+            }
         }
 
         return {
