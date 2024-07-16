@@ -79,7 +79,7 @@ export class UpdateEventDto {
     static validationSchema = Joi.object({
         eventName: Joi.string().optional(),
         eventDetails: Joi.string().optional(),
-        eventImage: Joi.string().required(),
+        eventImage: Joi.string().optional(),
         start: Joi.string().optional(),
         end: Joi.string().optional(),
         place: Joi.string().optional(),

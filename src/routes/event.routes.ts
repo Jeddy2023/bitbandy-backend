@@ -14,7 +14,14 @@ router.post("/create-event", isLoggedIn, isAdmin, (req, res, next) => {
         next();
     });
 }, createEventController);
-router.put("/update/:id", isLoggedIn, isAdmin, updateEventController);
+router.put("/update/:id", isLoggedIn, isAdmin, (req, res, next) => {
+    upload.single("eventImage")(req, res, (err: any) => {
+        if (err) {
+            return res.status(400).json({ message: "Validation Error", errors: err });
+        }
+        next();
+    });
+}, updateEventController);
 router.delete("/delete-event/:id", isLoggedIn, isAdmin, deleteEventController);
 router.get("/event/:id", getEventByIdController);
 router.get("/admin/event/:id", isLoggedIn, isAdmin, getEventByIdForAdminController);

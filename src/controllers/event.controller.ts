@@ -37,7 +37,7 @@ export const updateEventController = asyncHandler(async (req: CustomRequestWithF
     const updateEventDto = new UpdateEventDto(
         req.body.eventName,
         req.body.eventDetails,
-        req.file?.path || '',
+        req.file?.path || '',  
         req.body.start,
         req.body.end,
         req.body.place,
@@ -51,9 +51,11 @@ export const updateEventController = asyncHandler(async (req: CustomRequestWithF
 
     const errors = validator(UpdateEventDto, updateEventDto);
     if (errors) return res.status(400).json({ message: "Validation Error", errors });
+
     await eventService.updateEvent(req.params.id, updateEventDto);
     return res.status(200).json({ message: "Event updated successfully" });
-})
+});
+
 
 export const deleteEventController = asyncHandler(async (req: CustomRequest, res: Response) => {
     await eventService.deleteEvent(req.params.id);

@@ -14,7 +14,14 @@ router.post("/create-event", isLoggedIn_middleware_1.isLoggedIn, isAdmin_middlew
         next();
     });
 }, event_controller_1.createEventController);
-router.put("/update/:id", isLoggedIn_middleware_1.isLoggedIn, isAdmin_middleware_1.isAdmin, event_controller_1.updateEventController);
+router.put("/update/:id", isLoggedIn_middleware_1.isLoggedIn, isAdmin_middleware_1.isAdmin, (req, res, next) => {
+    multer_config_1.upload.single("eventImage")(req, res, (err) => {
+        if (err) {
+            return res.status(400).json({ message: "Validation Error", errors: err });
+        }
+        next();
+    });
+}, event_controller_1.updateEventController);
 router.delete("/delete-event/:id", isLoggedIn_middleware_1.isLoggedIn, isAdmin_middleware_1.isAdmin, event_controller_1.deleteEventController);
 router.get("/event/:id", event_controller_1.getEventByIdController);
 router.get("/admin/event/:id", isLoggedIn_middleware_1.isLoggedIn, isAdmin_middleware_1.isAdmin, event_controller_1.getEventByIdForAdminController);

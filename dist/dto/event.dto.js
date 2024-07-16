@@ -60,7 +60,7 @@ exports.UpdateEventDto = UpdateEventDto;
 UpdateEventDto.validationSchema = joi_1.default.object({
     eventName: joi_1.default.string().optional(),
     eventDetails: joi_1.default.string().optional(),
-    eventImage: joi_1.default.string().required(),
+    eventImage: joi_1.default.string().optional(),
     start: joi_1.default.string().optional(),
     end: joi_1.default.string().optional(),
     place: joi_1.default.string().optional(),
