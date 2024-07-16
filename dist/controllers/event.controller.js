@@ -21,7 +21,7 @@ exports.createEventController = (0, asyncHandler_middleware_1.asyncHandler)(asyn
     return res.status(201).json({ message: "Event created successfully" });
 });
 exports.updateEventController = (0, asyncHandler_middleware_1.asyncHandler)(async (req, res) => {
-    const updateEventDto = new event_dto_1.UpdateEventDto(req.body.eventName, req.body.eventDetails, req.file?.path || '', req.body.start, req.body.end, req.body.place, req.body.state, req.body.area, req.body.city, req.body.price, req.body.totalTickets, req.body.eventDate);
+    const updateEventDto = new event_dto_1.UpdateEventDto(req.body.eventName, req.body.eventDetails, req.file?.path, req.body.start, req.body.end, req.body.place, req.body.state, req.body.area, req.body.city, req.body.price, req.body.totalTickets, req.body.eventDate);
     const errors = (0, validator_utils_1.validator)(event_dto_1.UpdateEventDto, updateEventDto);
     if (errors)
         return res.status(400).json({ message: "Validation Error", errors });

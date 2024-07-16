@@ -37,7 +37,7 @@ export const updateEventController = asyncHandler(async (req: CustomRequestWithF
     const updateEventDto = new UpdateEventDto(
         req.body.eventName,
         req.body.eventDetails,
-        req.file?.path || '',  
+        req.file?.path,  
         req.body.start,
         req.body.end,
         req.body.place,

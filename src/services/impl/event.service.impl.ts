@@ -7,8 +7,12 @@ import Cloudinary from "../../config/cloudinary-config";
 
 class EventServiceImpl implements EventService {
     async createEvent(dto: CreateEventDto): Promise<void> {
-        console.log(dto);
         try {
+            const eventDate = new Date(dto.eventDate);
+            if (eventDate < new Date()) {
+                throw new CustomError(400, "Event date cannot be in the past");
+            }
+
             let result;
             try {
                 result = await Cloudinary.v2.uploader.upload(dto.eventImage);
@@ -51,7 +55,7 @@ class EventServiceImpl implements EventService {
         }
 
         try {
-            let result
+            let result;
             if (dto.eventImage) {
                 try {
                     result = await Cloudinary.v2.uploader.upload(dto.eventImage);
@@ -62,20 +66,35 @@ class EventServiceImpl implements EventService {
 
             if (dto.eventName) updateData.eventName = dto.eventName;
             if (dto.eventDetails) updateData.eventDetails = dto.eventDetails;
-            if (dto.eventImage && result) updateData.eventImage = result?.secure_url;
+            if (dto.eventImage && result) updateData.eventImage = result.secure_url;
             if (dto.start) updateData.time.start = dto.start;
             if (dto.end) updateData.time.end = dto.end;
             if (dto.place) updateData.location.place = dto.place;
             if (dto.state) updateData.location.state = dto.state;
             if (dto.area) updateData.location.area = dto.area;
             if (dto.city) updateData.location.city = dto.city;
+
             if (dto.price) updateData.tickets.price = dto.price;
-            if (dto.totalTickets) updateData.tickets.totalTickets = dto.totalTickets;
-            if (dto.eventDate) updateData.eventDate = dto.eventDate;
+            if (dto.totalTickets !== undefined) {
+                if (dto.totalTickets < updateData.tickets.totalSold) {
+                    throw new CustomError(400, "Total tickets cannot be less than total sold tickets");
+                }
+                updateData.tickets.totalTickets = dto.totalTickets;
+            }
+            if (dto.eventDate) {
+                const newEventDate = new Date(dto.eventDate);
+                if (newEventDate < new Date()) {
+                    throw new CustomError(400, "Event date cannot be in the past");
+                }
+                updateData.eventDate = newEventDate;
+            }
+
+            await updateData.save();
         } catch (error: any) {
             throw new CustomError(500, `Failed to update event: ${error.message}`);
         }
     }
+
 
     async deleteEvent(id: string): Promise<void> {
         const event = await Event.findById(id);

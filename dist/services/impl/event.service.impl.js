@@ -9,8 +9,11 @@ const customError_utils_1 = require("../../utils/customError.utils");
 const cloudinary_config_1 = __importDefault(require("../../config/cloudinary-config"));
 class EventServiceImpl {
     async createEvent(dto) {
-        console.log(dto);
         try {
+            const eventDate = new Date(dto.eventDate);
+            if (eventDate < new Date()) {
+                throw new customError_utils_1.CustomError(400, "Event date cannot be in the past");
+            }
             let result;
             try {
                 result = await cloudinary_config_1.default.v2.uploader.upload(dto.eventImage);
@@ -65,7 +68,7 @@ class EventServiceImpl {
             if (dto.eventDetails)
                 updateData.eventDetails = dto.eventDetails;
             if (dto.eventImage && result)
-                updateData.eventImage = result?.secure_url;
+                updateData.eventImage = result.secure_url;
             if (dto.start)
                 updateData.time.start = dto.start;
             if (dto.end)
@@ -80,10 +83,20 @@ class EventServiceImpl {
                 updateData.location.city = dto.city;
             if (dto.price)
                 updateData.tickets.price = dto.price;
-            if (dto.totalTickets)
+            if (dto.totalTickets !== undefined) {
+                if (dto.totalTickets < updateData.tickets.totalSold) {
+                    throw new customError_utils_1.CustomError(400, "Total tickets cannot be less than total sold tickets");
+                }
                 updateData.tickets.totalTickets = dto.totalTickets;
-            if (dto.eventDate)
-                updateData.eventDate = dto.eventDate;
+            }
+            if (dto.eventDate) {
+                const newEventDate = new Date(dto.eventDate);
+                if (newEventDate < new Date()) {
+                    throw new customError_utils_1.CustomError(400, "Event date cannot be in the past");
+                }
+                updateData.eventDate = newEventDate;
+            }
+            await updateData.save();
         }
         catch (error) {
             throw new customError_utils_1.CustomError(500, `Failed to update event: ${error.message}`);
