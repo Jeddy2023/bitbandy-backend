@@ -1,11 +1,11 @@
 {
-  "type": "module",
+  "type": "commonjs",
   "name": "bitbandy-backend",
   "version": "1.0.0",
   "description": "",
   "main": "src/server.ts",
   "scripts": {
-    "start": "ts-node src/server.ts",
+    "start": "ts-node --require esbuild-register dist/server.js",
     "dev": "nodemon src/server.ts",
     "build": "tsc",
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -28,6 +28,8 @@
     "cors": "^2.8.5",
     "date-fns": "^3.6.0",
     "dotenv": "^16.4.5",
+    "esbuild": "^0.23.0",
+    "esbuild-register": "^3.5.0",
     "express": "^4.19.2",
     "express-async-handler": "^1.2.0",
     "handlebars": "^4.7.8",
