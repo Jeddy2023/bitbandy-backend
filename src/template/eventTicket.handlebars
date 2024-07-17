@@ -24,13 +24,15 @@
 
         .banner {
             border: 1px dashed #1b3f5e;
+            background-color: white;
             box-shadow: 2px 2px 14px lightgray;
             font-family: "Poppins", sans-serif;
             position: relative;
             overflow: hidden;
-            padding: 20px 0;
+            padding: 30px 0;
             border-top-left-radius: 50px;
             border-bottom-right-radius: 50px;
+            overflow: hidden;
         }
 
         .banner::before {
@@ -38,7 +40,7 @@
             position: absolute;
             top: 50%;
             left: 50%;
-            transform: translate(-50%, -50%);
+            transform: translate(-50%, -50%) rotate(50deg);
             font-size: 10em;
             color: #f2f6fc;
             z-index: -1;
@@ -51,11 +53,11 @@
 
         .top {
             display: flex;
-            align-items: center;
+            flex-direction: column;
             justify-content: space-between;
-            gap: 30px;
+            gap: 20px;
             background-color: #1b3f5e;
-            padding: 15px 40px;
+            padding: 15px 15px;
             z-index: 1;
             color: white;
         }
@@ -67,7 +69,7 @@
         .triangle-up,
         .triangle-down {
             position: absolute;
-            left: 30%;
+            left: 20%;
             transform: translateX(-50%);
         }
 
@@ -91,23 +93,21 @@
 
         .vertical-line {
             position: absolute;
-            top: 20px;
-            bottom: 20px;
-            left: 30%;
+            right: 20px;
+            left: 20px;
+            bottom: 30%;
             transform: translateX(-50%);
-            border-left: 3px dashed #1b3f5e;
+            border-top: 3px dashed #1b3f5e;
             height: calc(100% - 40px);
         }
 
         .bottom {
             display: flex;
+            flex-direction: column;
+            gap: 20px;
             width: 100%;
-            padding: 10px 40px;
+            padding: 10px 15px;
             color: #1b3f5e;
-        }
-
-        .bottom-left {
-            min-width: 30%;
         }
 
         .bottom-left-img {
@@ -131,7 +131,6 @@
             display: flex;
             flex-direction: column;
             gap: 20px;
-            padding-left: 20px;
         }
 
         .bottom-right-details {
@@ -144,10 +143,9 @@
     <div class="banner">
         <div class="triangle-up"></div>
         <div class="triangle-down"></div>
-        <div class="vertical-line"></div>
         <div class="top">
-            <h2 class="uppercase normal">Ticket No. {{ticketNumber}}</h2>
-            <h1 class="uppercase normal">{{eventTitle}}</h1>
+            <h3 class="uppercase normal">Ticket No. {{ticketNumber}}</h3>
+            <h2 class="uppercase normal">{{eventTitle}}</h2>
         </div>
         <div class="bottom">
             <div class="bottom-left">
@@ -165,8 +163,8 @@
                     <h2 class="uppercase">Ticket. {{ticketCode}}</h2>
                 </div>
                 <div class="bottom-right-date">
-                    <span><strong>Location:</strong> {{location}}</span>
-                    <span>{{eventDate}}</span>
+                    <div><strong>Location:</strong> {{location}}</div>
+                    <div>{{eventDate}}</div>
                 </div>
             </div>
         </div>
