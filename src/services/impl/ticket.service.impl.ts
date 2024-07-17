@@ -41,7 +41,6 @@ class TicketServiceImpl implements TicketService {
             await event.save({ session });
 
             await session.commitTransaction();
-            session.endSession();
 
             const ticketData: SendEmailDto[] = tickets.map(ticket => ({
                 ticketNumber: ticket.ticketNumber.toString(),
@@ -59,9 +58,10 @@ class TicketServiceImpl implements TicketService {
                 await this.sendEmail(data);
             }
         } catch (error: any) {
+            throw new CustomError(500, `Failed to buy ticket: ${error.message}`);
+        } finally {
             await session.abortTransaction();
             session.endSession();
-            throw new CustomError(500, `Failed to buy ticket: ${error.message}`);
         }
     }
 
