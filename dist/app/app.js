@@ -11,6 +11,8 @@ const mongoose_1 = __importDefault(require("mongoose"));
 const auth_routes_1 = __importDefault(require("../routes/auth.routes"));
 const event_routes_1 = __importDefault(require("../routes/event.routes"));
 const ticket_routes_1 = __importDefault(require("../routes/ticket.routes"));
+const contact_routes_1 = __importDefault(require("../routes/contact.routes"));
+const paystack_routes_1 = __importDefault(require("../routes/paystack.routes"));
 dotenv_1.default.config();
 (0, database_1.default)();
 const app = (0, express_1.default)();
@@ -34,6 +36,8 @@ app.use((0, cors_1.default)(corsOptions));
 app.use("/api/v1/auth", auth_routes_1.default);
 app.use("/api/v1/events", event_routes_1.default);
 app.use("/api/v1/tickets", ticket_routes_1.default);
+app.use("/api/v1/contacts", contact_routes_1.default);
+app.use("/api/v1/paystack", paystack_routes_1.default);
 app.use((error, req, res, next) => {
     console.log(error.stack);
     return res.status(error.statusCode).json({ message: error.message });

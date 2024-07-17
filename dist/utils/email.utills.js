@@ -17,12 +17,12 @@ const transporter = nodemailer_1.default.createTransport({
     },
 });
 // Function to send an email
-const sendEmail = async (to, subject, html, template) => {
+const sendEmail = async (to, subject, html, template, from = "BitBandy <bitbandy113@gmail.com>") => {
     const source = fs_1.default.readFileSync(path_1.default.join(__dirname, template), "utf8");
     const compiledTemplate = handlebars_1.default.compile(source);
     try {
         const mailOptions = {
-            from: "BitBandy <bitbandy113@gmail.com>",
+            from,
             to,
             subject,
             html: compiledTemplate(html),

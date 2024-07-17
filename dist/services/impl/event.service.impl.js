@@ -170,6 +170,7 @@ class EventServiceImpl {
             .skip(offset)
             .limit(pageSize)
             .sort({ createdAt: -1 });
+        console.log(events);
         return events.map(event => {
             return {
                 id: event._id,

@@ -18,14 +18,15 @@ export const sendEmail = async (
   to: string,
   subject: string,
   html: {},
-  template: string
+  template: string,
+  from: string = "BitBandy <bitbandy113@gmail.com>"
 ): Promise<void> => {
   const source = fs.readFileSync(path.join(__dirname, template), "utf8");
   const compiledTemplate = handlebars.compile(source);
 
   try {
     const mailOptions: SendMailOptions = {
-      from: "BitBandy <bitbandy113@gmail.com>",
+      from,
       to,
       subject,
       html: compiledTemplate(html),

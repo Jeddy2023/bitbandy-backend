@@ -95,7 +95,6 @@ class EventServiceImpl implements EventService {
         }
     }
 
-
     async deleteEvent(id: string): Promise<void> {
         const event = await Event.findById(id);
         if (!event) {
@@ -172,6 +171,7 @@ class EventServiceImpl implements EventService {
             .limit(pageSize)
             .sort({ createdAt: -1 });
 
+        console.log(events)
         return events.map(event => {
             return {
                 id: event._id,

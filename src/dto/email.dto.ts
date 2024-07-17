@@ -9,3 +9,10 @@ export interface SendEmailDto {
     location: string;
     eventDate: string;
 }
+
+export interface SendCustomerEmailDto {
+    email: string;
+    firstName: string;
+    lastName: string;
+    message: string
+}

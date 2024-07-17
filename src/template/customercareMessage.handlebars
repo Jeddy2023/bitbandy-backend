@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Customer Care - BitWealth</title>
+    <title>Customer Care - BitBandy</title>
     <style>
         body {
             font-family: Arial, sans-serif;
-            line-height: 1;
+            line-height: 1.5;
             background-color: #f4f4f4;
             margin: 0;
             padding: 0;
@@ -71,20 +71,23 @@
 </head>
 <body>
     <div class="container">
-        <h2>BitWealth</h2>
-        <p>Hi,</p>
-        <p>We hope this message finds you well.</p>
+        <h2>BitBandy</h2>
+        <p>Hi Team,</p>
+        <p>You have received a new message from a customer. Here are the details:</p>
+        <p><strong>Name:</strong> {{firstName}} {{lastName}}</p>
+        <p><strong>Email:</strong> {{email}}</p>
+        <p><strong>Message:</strong></p>
         <p>{{message}}</p>
         <div class="contact-info">
-            <p>If you have any questions or need assistance, feel free to reach out to our support team.</p>
-            <h3>Contact Us:</h3>
+            <p>If you need to get back to the customer, you can reply to their email.</p>
+            <h3>Contact Details:</h3>
             <ul>
-                <li>Email: <a href="mailto:bitwealth113@gmail.com" class="link">bitwealth113@gmail.com</a></li>
-                <li>Phone: +123456789</li>
+                <li>Email: <a href="mailto:{{email}}" class="link">{{email}}</a></li>
+                <li>Message: {{message}}</li>
             </ul>
         </div>
-        <p>Thank you for choosing BitWealth. We appreciate your business.</p>
-        <footer>BitWealth</footer>
+        <p>Thank you for your attention to this matter.</p>
+        <footer>Best regards,<br>BitBandy Team</footer>
     </div>
 </body>
 </html>

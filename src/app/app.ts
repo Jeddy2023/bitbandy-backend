@@ -6,6 +6,7 @@ import mongoose from "mongoose";
 import authRoutes from "../routes/auth.routes";
 import eventRoutes from "../routes/event.routes";
 import ticketRoutes from "../routes/ticket.routes";
+import contactRoutes from "../routes/contact.routes";
 import PaystackRoutes from "../routes/paystack.routes";
 import { Request, Response, NextFunction } from "express";
 dotenv.config();
@@ -33,6 +34,7 @@ app.use(cors(corsOptions));
 app.use("/api/v1/auth", authRoutes);
 app.use("/api/v1/events", eventRoutes);
 app.use("/api/v1/tickets", ticketRoutes);
+app.use("/api/v1/contacts", contactRoutes);
 app.use("/api/v1/paystack", PaystackRoutes);
 
 app.use((error: any, req: Request, res: Response, next: NextFunction) => {
