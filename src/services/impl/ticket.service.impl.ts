@@ -37,7 +37,7 @@ class TicketServiceImpl implements TicketService {
                 tickets.push(ticket);
             }
 
-            event.tickets.totalSold += dto.quantity;
+            event.tickets.totalSold += Number(dto.quantity);
             await event.save({ session });
 
             await session.commitTransaction();
