@@ -6,8 +6,7 @@
   "scripts": {
     "start": "ts-node src/server.ts",
     "dev": "nodemon src/server.ts",
-    "copy": "cp -r src/templates dist/templates",
-    "build": "tsc && npm run copy",
+    "build": "tsc",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
