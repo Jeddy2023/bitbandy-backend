@@ -67,9 +67,10 @@ class TicketServiceImpl implements TicketService {
 
     async sendEmail(data: SendEmailDto): Promise<void> {
         const { ticketNumber, eventTitle, imageUrl, eventTimeStart, eventTimeEnd, ticketCode, location, eventDate, email } = data;
+        const eventTime = `${eventTimeStart} - ${eventTimeEnd}`
         const templatePath = "../template/eventTicket.handlebars";
 
-        await sendEmail(email, "Your Bitbandy Ticket", { ticketNumber, eventTitle, imageUrl, eventTimeStart, eventTimeEnd, ticketCode, location, eventDate }, templatePath);
+        await sendEmail(email, "Your Bitbandy Ticket", { ticketNumber, eventTitle, imageUrl, eventTime, ticketCode, location, eventDate }, templatePath);
     }
 }
 
