@@ -33,10 +33,9 @@ class TicketServiceImpl {
                 await ticket.save({ session });
                 tickets.push(ticket);
             }
-            event.tickets.totalSold += dto.quantity;
+            event.tickets.totalSold += Number(dto.quantity);
             await event.save({ session });
             await session.commitTransaction();
-            session.endSession();
             const ticketData = tickets.map(ticket => ({
                 ticketNumber: ticket.ticketNumber.toString(),
                 eventTitle: event.eventName,
@@ -53,15 +52,20 @@ class TicketServiceImpl {
             }
         }
         catch (error) {
-            await session.abortTransaction();
-            session.endSession();
+            if (session.inTransaction()) {
+                await session.abortTransaction();
+            }
             throw new customError_utils_1.CustomError(500, `Failed to buy ticket: ${error.message}`);
+        }
+        finally {
+            session.endSession();
         }
     }
     async sendEmail(data) {
         const { ticketNumber, eventTitle, imageUrl, eventTimeStart, eventTimeEnd, ticketCode, location, eventDate, email } = data;
+        const eventTime = `${eventTimeStart} - ${eventTimeEnd}`;
         const templatePath = "../template/eventTicket.handlebars";
-        await (0, email_utills_1.sendEmail)(email, "Your Bitbandy Ticket", { ticketNumber, eventTitle, imageUrl, eventTimeStart, eventTimeEnd, ticketCode, location, eventDate }, templatePath);
+        await (0, email_utills_1.sendEmail)(email, "Your Bitbandy Ticket", { ticketNumber, eventTitle, imageUrl, eventTime, ticketCode, location, eventDate }, templatePath);
     }
 }
 exports.default = TicketServiceImpl;
