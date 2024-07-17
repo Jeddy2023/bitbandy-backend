@@ -58,12 +58,15 @@ class TicketServiceImpl implements TicketService {
                 await this.sendEmail(data);
             }
         } catch (error: any) {
+            if (session.inTransaction()) {
+                await session.abortTransaction();
+            }
             throw new CustomError(500, `Failed to buy ticket: ${error.message}`);
         } finally {
-            await session.abortTransaction();
             session.endSession();
         }
     }
+
 
     async sendEmail(data: SendEmailDto): Promise<void> {
         const { ticketNumber, eventTitle, imageUrl, eventTimeStart, eventTimeEnd, ticketCode, location, eventDate, email } = data;
