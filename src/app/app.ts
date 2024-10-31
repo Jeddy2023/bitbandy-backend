@@ -8,6 +8,7 @@ import eventRoutes from "../routes/event.routes";
 import ticketRoutes from "../routes/ticket.routes";
 import contactRoutes from "../routes/contact.routes";
 import PaystackRoutes from "../routes/paystack.routes";
+import EmailSpamRoutes from "../routes/emailspam.routes";
 import { Request, Response, NextFunction } from "express";
 dotenv.config();
 
@@ -36,6 +37,7 @@ app.use("/api/v1/events", eventRoutes);
 app.use("/api/v1/tickets", ticketRoutes);
 app.use("/api/v1/contacts", contactRoutes);
 app.use("/api/v1/paystack", PaystackRoutes);
+app.use("/api/v1/email", EmailSpamRoutes);
 
 app.use((error: any, req: Request, res: Response, next: NextFunction) => {
   console.log(error.stack);

@@ -75,6 +75,10 @@ class TicketServiceImpl implements TicketService {
 
         await sendEmail(email, "Your Bitbandy Ticket", { ticketNumber, eventTitle, imageUrl, eventTime, ticketCode, location, eventDate }, templatePath);
     }
+
+    async deleteAllTickets(): Promise<void> {
+        await Ticket.deleteMany({});
+    }
 }
 
 export default TicketServiceImpl;

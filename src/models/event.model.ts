@@ -27,6 +27,7 @@ export interface IEvent extends Document{
     location: Location;
     tickets: Tickets;
     eventDate: Date;
+    isFree: boolean
 }
 
 
@@ -55,7 +56,8 @@ const EventSchema: Schema<IEvent> = new Schema({
     time: { type: TimeSchema, required: true },
     location: { type: LocationSchema, required: true },
     tickets: { type: TicketsSchema, required: true },
-    eventDate: { type: Date, required: true }
+    eventDate: { type: Date, required: true },
+    isFree: { type: Boolean, default: false}
 }, { timestamps: true })
 
 export const Event = mongoose.model<IEvent>("Event", EventSchema);

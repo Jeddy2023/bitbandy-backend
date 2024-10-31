@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BitBandy Tickets</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+</head>
+
+<body
+    style="padding: 0; margin: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; background-color: #f9f9f9;">
+    <table align="center" cellpadding="0" cellspacing="0"
+        style="width: 100%; max-width: 600px; margin: auto; background-color: white; border: 1px dashed #1b3f5e; box-shadow: 2px 2px 14px lightgray; border-radius: 10px; overflow: hidden;">
+        <tr>
+            <td style="background-color: #1b3f5e; color: white; padding: 15px; text-align: left;">
+                <h3 style="text-transform: uppercase; font-weight: 400; margin: 0;">Ticket No. {{ticketNumber}}</h3>
+                <h2 style="text-transform: uppercase; font-weight: 400; margin: 10px 0 0 0;">{{eventTitle}}</h2>
+            </td>
+        </tr>
+        <tr>
+            <td style="padding: 15px;">
+                <table cellpadding="0" cellspacing="0" style="width: 100%;">
+                    <tr>
+                        <td style="width: 30%; padding: 10px; vertical-align: top;">
+                            <img src="https://bitbandy-frontend.vercel.app/assets/bitbandy-DpIeohPR.png" alt=""
+                                style="width: 100px; height: auto;">
+                            <div
+                                style="border: 1px solid #1b3f5e; padding: 10px; text-align: center; margin-top: 10px;">
+                                <h3 style="margin: 0; font-size: 16px;">Event Ticket</h3>
+                                <span>{{eventTime}}</span>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="width: 70%; padding: 10px; vertical-align: top;">
+                            <h1 style="text-transform: uppercase; margin: 0;">{{eventTitle}}</h1>
+                            <h2 style="text-transform: uppercase; margin: 10px 0;">Ticket. {{ticketCode}}</h2>
+                            <div><strong>Location:</strong> {{location}}</div>
+                            <div>{{eventDate}}</div>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+</body>
+
+</html>

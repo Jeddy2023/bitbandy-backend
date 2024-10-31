@@ -13,29 +13,33 @@ const transporter = nodemailer.createTransport({
   },
 });
 
-// Function to send an email
+let compiledTemplate: HandlebarsTemplateDelegate | null = null;
+
+const getTemplate = (templatePath: string): HandlebarsTemplateDelegate => {
+  if (!compiledTemplate) {
+    const source = fs.readFileSync(templatePath, "utf8");
+    compiledTemplate = handlebars.compile(source);
+  }
+  return compiledTemplate;
+};
+
 export const sendEmail = async (
   to: string,
   subject: string,
-  html: {},
-  template: string,
+  templateData: {},
+  templatePath: string,
   from: string = "BitBandy <bitbandy113@gmail.com>"
 ): Promise<void> => {
-  const source = fs.readFileSync(path.join(__dirname, template), "utf8");
-  const compiledTemplate = handlebars.compile(source);
+  const template = getTemplate(path.join(__dirname, templatePath));
 
   try {
     const mailOptions: SendMailOptions = {
       from,
       to,
       subject,
-      html: compiledTemplate(html),
+      html: template(templateData),
     };
 
-    // Set Content-Type header for HTML content
-    (mailOptions as any).contentType = "text/html; charset=utf-8";
-
-    // Send mail with defined transport object
     await transporter.sendMail(mailOptions);
     console.log("Email sent successfully");
   } catch (error) {

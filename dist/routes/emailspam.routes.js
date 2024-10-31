@@ -1,0 +1,13 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = require("express");
+const emailspam_controller_1 = require("../controllers/emailspam.controller");
+const isLoggedIn_middleware_1 = require("../middleware/isLoggedIn.middleware");
+const isAdmin_middleware_1 = require("../middleware/isAdmin.middleware");
+const router = (0, express_1.Router)();
+router.post("/create-emailspam", emailspam_controller_1.createEmailSpamController);
+router.put("/update/:id", isLoggedIn_middleware_1.isLoggedIn, isAdmin_middleware_1.isAdmin, emailspam_controller_1.updateEmailSpamController);
+router.delete("/delete-emailspam/:id", isLoggedIn_middleware_1.isLoggedIn, isAdmin_middleware_1.isAdmin, emailspam_controller_1.deleteEmailSpamController);
+router.get("/emailspam/:id", isLoggedIn_middleware_1.isLoggedIn, isAdmin_middleware_1.isAdmin, emailspam_controller_1.getEmailSpamByIdController);
+router.get("/", isLoggedIn_middleware_1.isLoggedIn, isAdmin_middleware_1.isAdmin, emailspam_controller_1.getAllEmailSpamController);
+exports.default = router;

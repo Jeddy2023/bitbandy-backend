@@ -10,13 +10,16 @@ const ticketService: TicketService = new TicketServiceImpl();
 
 export const buyTicketController = asyncHandler(async (req: CustomRequest, res: Response) => {
     const buyTicketDto = new BuyTicketDto(req.body);
-    console.log(buyTicketDto)
 
     const errors = validator(BuyTicketDto, buyTicketDto);
-    console.log(errors)
     if (errors) return res.status(400).json({ message: "Validation Error", errors });
 
     await ticketService.buyTicket(buyTicketDto);
     
     return res.status(200).json({ message: "Ticket(s) purchased successfully" });
+});
+
+export const deleteAllTicketsController = asyncHandler(async (_req: Request, res: Response) => {
+    await ticketService.deleteAllTickets();
+    return res.status(200).json({ message: "All tickets have been deleted successfully" });
 });

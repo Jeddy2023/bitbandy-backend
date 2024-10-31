@@ -13,6 +13,7 @@ const event_routes_1 = __importDefault(require("../routes/event.routes"));
 const ticket_routes_1 = __importDefault(require("../routes/ticket.routes"));
 const contact_routes_1 = __importDefault(require("../routes/contact.routes"));
 const paystack_routes_1 = __importDefault(require("../routes/paystack.routes"));
+const emailspam_routes_1 = __importDefault(require("../routes/emailspam.routes"));
 dotenv_1.default.config();
 (0, database_1.default)();
 const app = (0, express_1.default)();
@@ -38,6 +39,7 @@ app.use("/api/v1/events", event_routes_1.default);
 app.use("/api/v1/tickets", ticket_routes_1.default);
 app.use("/api/v1/contacts", contact_routes_1.default);
 app.use("/api/v1/paystack", paystack_routes_1.default);
+app.use("/api/v1/email", emailspam_routes_1.default);
 app.use((error, req, res, next) => {
     console.log(error.stack);
     return res.status(error.statusCode).json({ message: error.message });

@@ -2,6 +2,9 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = require("express");
 const ticket_controller_1 = require("../controllers/ticket.controller");
+const isLoggedIn_middleware_1 = require("../middleware/isLoggedIn.middleware");
+const isAdmin_middleware_1 = require("../middleware/isAdmin.middleware");
 const router = (0, express_1.Router)();
 router.post("/buy-ticket", ticket_controller_1.buyTicketController);
+router.delete("/delete-all-tickets", isLoggedIn_middleware_1.isLoggedIn, isAdmin_middleware_1.isAdmin, ticket_controller_1.deleteAllTicketsController);
 exports.default = router;

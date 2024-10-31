@@ -39,7 +39,8 @@ class EventServiceImpl implements EventService {
                     totalTickets: dto.totalTickets,
                     totalSold: 0
                 },
-                eventDate: dto.eventDate
+                eventDate: dto.eventDate,
+                isFree: dto.price == 0 ? true : false
             }
 
             await Event.create(event);
@@ -186,6 +187,7 @@ class EventServiceImpl implements EventService {
                 price: event.tickets.price,
                 totalTickets: event.tickets.totalTickets,
                 eventDate: event.eventDate,
+                isFree: event.isFree
             }
         })
     }

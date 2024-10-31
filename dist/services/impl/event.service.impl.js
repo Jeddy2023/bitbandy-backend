@@ -40,7 +40,8 @@ class EventServiceImpl {
                     totalTickets: dto.totalTickets,
                     totalSold: 0
                 },
-                eventDate: dto.eventDate
+                eventDate: dto.eventDate,
+                isFree: dto.price == 0 ? true : false
             };
             await event_model_1.Event.create(event);
         }
@@ -185,6 +186,7 @@ class EventServiceImpl {
                 price: event.tickets.price,
                 totalTickets: event.tickets.totalTickets,
                 eventDate: event.eventDate,
+                isFree: event.isFree
             };
         });
     }

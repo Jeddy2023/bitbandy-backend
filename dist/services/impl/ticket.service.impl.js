@@ -67,5 +67,8 @@ class TicketServiceImpl {
         const templatePath = "../template/eventTicket.handlebars";
         await (0, email_utills_1.sendEmail)(email, "Your Bitbandy Ticket", { ticketNumber, eventTitle, imageUrl, eventTime, ticketCode, location, eventDate }, templatePath);
     }
+    async deleteAllTickets() {
+        await ticket_model_1.Ticket.deleteMany({});
+    }
 }
 exports.default = TicketServiceImpl;

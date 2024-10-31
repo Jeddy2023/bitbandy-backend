@@ -23,31 +23,11 @@ var __importStar = (this && this.__importStar) || function (mod) {
     return result;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Event = void 0;
+exports.EmailSpam = void 0;
 const mongoose_1 = __importStar(require("mongoose"));
-const TimeSchema = new mongoose_1.Schema({
-    start: { type: String, required: true },
-    end: { type: String, required: true }
-});
-const LocationSchema = new mongoose_1.Schema({
-    place: { type: String, required: true },
-    state: { type: String, required: true },
-    area: { type: String, required: true },
-    city: { type: String, required: true }
-});
-const TicketsSchema = new mongoose_1.Schema({
-    price: { type: Number, required: true },
-    totalTickets: { type: Number, required: true },
-    totalSold: { type: Number, required: true, default: 0 }
-});
-const EventSchema = new mongoose_1.Schema({
-    eventName: { type: String, required: true },
-    eventDetails: { type: String, required: true },
-    eventImage: { type: String, required: true },
-    time: { type: TimeSchema, required: true },
-    location: { type: LocationSchema, required: true },
-    tickets: { type: TicketsSchema, required: true },
-    eventDate: { type: Date, required: true },
-    isFree: { type: Boolean, default: false }
+const EmailSpamSchema = new mongoose_1.Schema({
+    event: { type: mongoose_1.Schema.Types.ObjectId, ref: "Event", required: true },
+    email: { type: String, required: true, unique: true },
+    name: { type: String, required: true },
 }, { timestamps: true });
-exports.Event = mongoose_1.default.model("Event", EventSchema);
+exports.EmailSpam = mongoose_1.default.model("EmailSpam", EmailSpamSchema);

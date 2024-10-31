@@ -16,20 +16,23 @@ const transporter = nodemailer_1.default.createTransport({
         pass: process.env.EMAIL_PASS, // Replace with a secure method to store the password
     },
 });
-// Function to send an email
-const sendEmail = async (to, subject, html, template, from = "BitBandy <bitbandy113@gmail.com>") => {
-    const source = fs_1.default.readFileSync(path_1.default.join(__dirname, template), "utf8");
-    const compiledTemplate = handlebars_1.default.compile(source);
+let compiledTemplate = null;
+const getTemplate = (templatePath) => {
+    if (!compiledTemplate) {
+        const source = fs_1.default.readFileSync(templatePath, "utf8");
+        compiledTemplate = handlebars_1.default.compile(source);
+    }
+    return compiledTemplate;
+};
+const sendEmail = async (to, subject, templateData, templatePath, from = "BitBandy <bitbandy113@gmail.com>") => {
+    const template = getTemplate(path_1.default.join(__dirname, templatePath));
     try {
         const mailOptions = {
             from,
             to,
             subject,
-            html: compiledTemplate(html),
+            html: template(templateData),
         };
-        // Set Content-Type header for HTML content
-        mailOptions.contentType = "text/html; charset=utf-8";
-        // Send mail with defined transport object
         await transporter.sendMail(mailOptions);
         console.log("Email sent successfully");
     }
